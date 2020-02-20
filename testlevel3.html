@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <title>Test Alpha Version 0.03</title>
+    <script src="phaser.js"></script>
+    <script>src="ScrollMaker.js"</script>
+
+  </head>
+  <body style="background-color:#2b2d2f;">
+    <script>
+  var config = {
+    type: Phaser.AUTO,
+    width: 800,
+    height: 600,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 300 },
+            debug: false
+        }
+    },
+    scene: {
+        preload: preload,
+        create: create,
+        update: update
+    }
+};
+
+var game = new Phaser.Game(config);
+
+function preload ()
+{
+    this.load.image('sky', 'assets/space.jpg');
+    this.load.image('ground', 'assets/groundType1.png');
+    this.load.image('ground2', 'assets/groundType2.png');
+    this.load.image('star', 'assets/star.png');
+    this.load.image('bomb', 'assets/alien.png');
+    this.load.image('ground3', 'assets/groundType3.png');
+    this.load.image('overlay1', 'assets/shadow.png')
+    this.load.spritesheet('dude', 'assets/astronaut.PNG',
+        { frameWidth: 32, frameHeight: 45 }
+    );
+}
+
+function create ()
+{
+
+  this.add.image(400, 300, 'sky');
+  platforms = this.physics.add.staticGroup();
+
+  platforms.create(384, 568, 'ground2').setScale(4).refreshBody();
+  platforms.create(448, 568, 'ground3').setScale(4).refreshBody();
+  platforms.create(64, 568, 'ground').setScale(4).refreshBody();
+  platforms.create(96, 568, 'overlay1').setScale(4).refreshBody();
+  platforms.create(128, 568, 'ground3').setScale(4).refreshBody();
+  platforms.create(192, 568, 'ground2').setScale(4).refreshBody();
+  platforms.create(256, 568, 'ground').setScale(4).refreshBody();
+  platforms.create(320, 568, 'ground').setScale(4).refreshBody();
+  platforms.create(512, 568, 'ground2').setScale(4).refreshBody();
+  platforms.create(600, 400, 'ground2');
+  platforms.create(50, 250, 'ground3');
+  platforms.create(750, 252, 'ground2');
+
+  player = this.physics.add.sprite(100, 450, 'dude').setScale(2);
+
+  player.setBounce(0.2);
+  player.setCollideWorldBounds(true);
+
+  stars = this.physics.add.group({
+    key: 'star',
+    repeat: 11,
+    setXY: { x: 12, y: 0, stepX: 70 }
+  });
+
+  stars.children.iterate(function (child) {
+
+    child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
+
+  })
+
+  this.physics.add.collider(stars, platforms);
+  this.physics.add.overlap(player, stars, collectStar, null, this);
+
+  this.anims.create({
+      key: 'left',
+      frames: this.anims.generateFrameNumbers('dude', { start: 3, end: 6 }),
+      frameRate: 10,
+      repeat: -1
+  });
+
+  this.anims.create({
+      key: 'right',
+      frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 2 }),
+      frameRate: 7,
+      repeat: -1
+  });
+
+  this.physics.add.collider(player, platforms);
+
+  cursors = this.input.keyboard.createCursorKeys();
+
+  scoreText = this.add.text(16, 16, 'Points: 0', { fontSize: '32px', fill: '#fff' });
+}
+
+var score = 0;
+var scoreText;
+var gameover = false
+
+function collectStar (player, star)
+{
+    star.disableBody(true, true);
+
+    score += 10;
+    scoreText.setText('Score: ' + score);
+
+    if (stars.countActive(true) === 0)
+    {
+        stars.children.iterate(function (child) {
+
+            child.enableBody(true, child.x, 0, true, true);
+
+        });
+
+        var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+
+        var bomb = bombs.create(x, 16, 'bomb');
+        bomb.setBounce(1);
+        bomb.setCollideWorldBounds(true);
+        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+
+    }
+}
+
+function update () {
+
+    if(!gameover) {
+      if (cursors.left.isDown) {
+          player.setVelocityX(-160);
+
+          player.anims.play('left', true);
+      } else if (cursors.right.isDown) {
+          player.setVelocityX(160);
+
+          player.anims.play('right', true);
+      } else {
+          player.setVelocityX(0);
+
+          player.anims.play('turn');
+      }
+
+      if (cursors.up.isDown && player.body.touching.down) {
+          player.setVelocityY(-330);
+      }
+    }
+
+    if (player.y > 550 ) {
+      scoreText.setText("GAME OVER")
+      gameover = true
+      player.setVelocityX(0);
+      player.setVelocityY(0);
+      player.anims.play('dead');
+      player.setTint(0xff0000);
+    }
+}
+
+bombs = this.physics.add.group();
+
+this.physics.add.collider(bombs, platforms);
+
+this.physics.add.collider(player, bombs, hitBomb, null, this);
+
+function hitBomb (player, bomb)
+{
+    this.physics.pause();
+
+    player.setTint(0xff0000);
+
+    player.anims.play('turn');
+
+    gameOver = true;
+}
+
+
+</script>
+  </body>
+</html>
