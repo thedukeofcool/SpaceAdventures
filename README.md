@@ -6,7 +6,7 @@ A game where you adventure in space!
 
   thedukeofcool,
   JavaIsMyLife
-  
+
 # Frameworks used
 
   Phaser,
