@@ -30,7 +30,7 @@ function preload ()
   this.load.image('sky', 'assets/space.jpg');
   this.load.image('ground', 'assets/groundType1.png');
   this.load.image('ground2', 'assets/groundType2.png');
-  this.load.image('star', 'assets/star.png');
+  this.load.image('star', 'assets/transparent.png');
   this.load.image('bomb', 'assets/alien.png');
   this.load.image('ground3', 'assets/groundType3.png');
   this.load.image('overlay1', 'assets/shadow.png')
@@ -64,8 +64,7 @@ stars.children.iterate(function (child) {
 
 })
 
-this.physics.add.collider(stars, platforms);
-this.physics.add.overlap(player, stars, collectStar, null, this);
+
 
 this.anims.create({
     key: 'left',
@@ -84,8 +83,6 @@ this.anims.create({
 this.physics.add.collider(player, platforms);
 
 cursors = this.input.keyboard.createCursorKeys();
-
-scoreText = this.add.text(16, 16, 'Points: 0', { fontSize: '32px', fill: '#fff' });
 }
 
 var score = 0;
