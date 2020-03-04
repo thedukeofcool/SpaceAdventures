@@ -1,0 +1,65 @@
+<head>
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <title>Space Adventures: You do not have a key</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="phaser.js"></script>
+  </head>
+<body style="background-color:#4800FF;">
+<script>
+var config = {
+  type: Phaser.AUTO,
+  width: 0,
+  height: 0,
+  scene: {
+      preload: preload,
+      create: create,
+      update: update
+  }
+};
+
+var game = new Phaser.Game(config);
+
+function preload ()
+{
+
+}
+
+function create ()
+{
+
+}
+
+function update ()
+{
+}
+
+function open1() {
+  window.location = './testlevel1.html'
+}
+
+function open2() {
+  window.location = './testlevel2.html'
+}
+
+function open3() {
+  window.location = './testlevel3.html'
+}
+
+function open4() {
+  window.location = './testlevel4.html'
+}
+
+function openmap() {
+  window.location = './map.html'
+}
+</script>
+Test Levels
+<button class="button button1" onclick="open1()"> Open TestLevel1 </button>
+<button class="button button1" onclick="open2()"> Open TestLevel2 </button>
+<button class="button button1" onclick="open3()"> Open TestLevel3 </button>
+<button class="button button1" onclick="open4()"> Open TestLevel4 </button>
+<br>
+<button class="button button1" onclick="openmap()"> Open Map </button>
+</body>
+</html>

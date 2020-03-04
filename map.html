@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Space Advenrures: Map</title>
+  <script src="phaser.js"></script>
 </head>
 <script>
 var config = {
@@ -42,7 +43,7 @@ function preload ()
 function create ()
 {
 
-this.add.image(400, 300, base);
+this.add.image(400, 300, 'BASE');
 platforms = this.physics.add.staticGroup();
 
 

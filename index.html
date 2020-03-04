@@ -4,14 +4,15 @@
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <title>Space Adventures: You do not have a key</title>
+    <link rel="stylesheet" href="style.css">
     <script src="phaser.js"></script>
     </head>
   <body style="background-color:#4800FF;">
 <script>
   var config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 400,
+    width: 0,
+    height: 0,
     scene: {
         preload: preload,
         create: create,
@@ -23,17 +24,22 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-  this.load.image('background', 'assets/INPU.png');
+
 }
 
 function create ()
 {
-  this.add.image(400, 200, 'background').setScale(.6).refreshBody;
+
 }
 
 function update ()
 {
 }
+
+function levelselect() {
+    window.location = './levelselect.html'
+}
 </script>
+<button class="button button1" onclick="levelselect()"> Level Select </button>
   </body>
 </html>
