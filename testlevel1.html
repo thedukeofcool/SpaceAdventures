@@ -96,6 +96,12 @@ function create ()
   cursors = this.input.keyboard.createCursorKeys();
 
   scoreText = this.add.text(16, 16, 'Points: 0', { fontSize: '32px', fill: '#fff' });
+
+  bombs = this.physics.add.group();
+
+  this.physics.add.collider(bombs, platforms);
+
+  this.physics.add.collider(player, bombs, hitBomb, null, this);
 }
 
 var score = 0;
@@ -157,13 +163,11 @@ function update () {
       player.anims.play('dead');
       player.setTint(0xff0000);
     }
+
+
 }
 
-bombs = this.physics.add.group();
 
-this.physics.add.collider(bombs, platforms);
-
-this.physics.add.collider(player, bombs, hitBomb, null, this);
 
 function hitBomb (player, bomb)
 {
