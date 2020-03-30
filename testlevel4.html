@@ -35,6 +35,7 @@ function preload ()
     this.load.image('ground', 'assets/groundType4.png');
     this.load.image('star', 'assets/star.png');
     this.load.image('bomb', 'assets/alien.png');
+    this.load.image('ufo', 'assets/ufo.png');
     this.load.spritesheet('dude', 'assets/astronaut.PNG',
         { frameWidth: 32, frameHeight: 45 }
     );
@@ -44,7 +45,7 @@ function create ()
 {
   platforms = this.physics.add.staticGroup();
 
-  platforms.create(0, 555, 'ground').setScale(4).refreshBody();
+  platforms.create(400, 290, 'ufo')
 
   player = this.physics.add.sprite(100, 450, 'dude').setScale(2);
 
