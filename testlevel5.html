@@ -20,6 +20,20 @@
         }
 
         create() {
+            this.add.circle(200, 300, 50, 0xC21807)
+            let clickCount = 0;
+            this.clickCountText = this.add.text(100, 200, '');
+
+            const clickButton = this.add.text(165, 240,'A', { fill: '#C21807' }).setScale(7.60)
+            .setInteractive()
+            .on('pointerdown', () => this.updateClickCountText1(++clickCount) );
+
+this.updateClickCountText1(clickCount);
+}
+
+updateClickCountText1(clickCount) {
+console.log('A pressed')
+
             this.joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
                     x: 400,
                     y: 300,
@@ -27,12 +41,11 @@
                     base: this.add.circle(0, 0, 100, 0x888888),
                     thumb: this.add.circle(0, 0, 50, 0xcccccc),
                     // dir: '8dir',   // 'up&down'|0|'left&right'|1|'4dir'|2|'8dir'|3
-                    // forceMin: 16,
-                    // enable: true
+                    // forceMin: 16,// enable: true
                 })
                 .on('update', this.dumpJoyStickState, this);
 
-            this.text = this.add.text(0, 0);
+            this.text = this.add.text(0,0);
             this.dumpJoyStickState();
         }
 
