@@ -7,41 +7,22 @@
   </head>
 <body style="background-color:#4800FF;">
 <script>
-
-function open1() {
-  window.location = './testlevel1.html'
-}
-
-function open2() {
-  window.location = './testlevel2.html'
-}
-
-function open3() {
-  window.location = './testlevel3.html'
-}
-
-function open4() {
-  window.location = './testlevel4.html'
-}
-
 function openmap() {
   window.location = './map.html'
 }
-
+function testlevels() {
+    window.location = './open-testlevels'
+}
 function ct1() {
-    window.location = './testlevel5.html'
+    window.location = './testlevel5'
+}
+function back() {
+    window.location = './'
 }
 </script>
-Test Levels
-<button class="button button1" onclick="open1()"> Open Test Level 1 </button>
-<button class="button button1" onclick="open2()"> Open Test Level 2 </button>
-<button class="button button1" onclick="open3()"> Open Test Level 3 </button>
-<button class="button button1" onclick="open4()"> Open Test Level 4 </button>
-<br>
-Map Levels
-<button class="button button1" onclick="openmap()"> Open Map </button>
-<br>
-Control Tests
-<button class="button button1" onclick="ct1()"> Open Control Test 1 </button>
+<button class="button button1-center" onclick="testlevels()"> Test Levels (ID 0 - 3) </button><br>
+<button class="button button1-center" onclick="openmap()"> Open Map (ID 4)</button><br>
+<button class="button button1-center" onclick="ct1()"> Open Control Test 1 (ID 5) </button><br>
+<button class="button button1-center" onclick="back()"> Back</button><br>
 </body>
 </html>

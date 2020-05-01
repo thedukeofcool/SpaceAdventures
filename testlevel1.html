@@ -7,7 +7,7 @@
     <script src="phaser.js"></script>
 
   </head>
-  <body style="background-color:#2b2d2f;">
+  <body style="background-color:#4800FF;">
     <script>
   var config = {
     type: Phaser.AUTO,
@@ -179,7 +179,10 @@ function hitBomb (player, bomb)
     gameOver = true;
 }
 
-
+function back() {
+    window.location = './open-testlevels'
+}
 </script>
+<button class="button button1-center" onclick="back()"> Back</button><br>
   </body>
 </html>
