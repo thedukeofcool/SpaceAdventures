@@ -16,3 +16,20 @@
   color: white;
   border: 2px solid white;
 }
+
+.button1-center {
+    background-color: blue;
+    color: white;
+    border: 2px solid white;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%
+}
+
+.centerlogo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%
+}

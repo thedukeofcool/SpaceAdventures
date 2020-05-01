@@ -3,13 +3,34 @@
   <head>
     <title>Space Adventures: Main Menu</title>
     <link rel="stylesheet" href="style.css">
+    <img src="logobeta.png" alt="Welcome to Fun Ness" class="centerlogo">
     </head>
   <body style="background-color:#4800FF;">
 <script>
 function levelselect() {
     window.location = './levelselect.html'
 }
+function credits() {
+    window.location = './credits.html'
+}
+function multiplayer() {
+    window.location = './multiplayer-lobby.html'
+}
+function rpgmode() {
+    window.location = './rpg.html'
+}
+function news() {
+    window.location = './news.html'
+}
+function settingyml() {
+    window.location = './localsettings.html'
+}
 </script>
-<button class="button button1" onclick="levelselect()"> Level Select </button>
+<button class="button button1-center" onclick="levelselect()"> Level Select </button><br>
+<button class="button button1-center" onclick="credits()"> Credits </button><br>
+<button class="button button1-center" onclick="multiplayer()"> Multiplayer </button><br>
+<button class="button button1-center" onclick="rpgmode()"> RPG Mode </button><br>
   </body>
+<button class="button button1-center" onclick="news()"> News </button><br>
+<button class="button button1-center" onclick="settingyml()"> Settings </button><br>
 </html>
