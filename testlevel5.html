@@ -23,6 +23,10 @@
 
             this.load.on('complete', function () {
                 console.log('complete');
+                progressBar.destroy();
+                progressBox.destroy();
+                loadingText.destroy();
+                assetText.destroy();
             });
 
             var progressBar = this.add.graphics();
@@ -141,8 +145,8 @@ console.log('A pressed')
     }
     </script>
     <title>Test Alpha Version Mobile 1.0.4.1 Beta</title>
+    <button class="button button1-center" onclick="back()"> Back</button><br>
   </head>
   <body style="background-color:#4800FF;">
-      <button class="button button1-center" onclick="back()"> Back</button><br>
   </body>
 </html>

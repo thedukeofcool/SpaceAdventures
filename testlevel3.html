@@ -5,7 +5,6 @@
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <title>Test Alpha Version 4.0.3</title>
     <script src="phaser.js"></script>
-    <script>src="ScrollMaker.js"</script>
 
   </head>
   <body style="background-color:#4800FF;">
@@ -95,6 +94,7 @@ assetText.setOrigin(0.5, 0.5);
 this.load.on('fileprogress', function (file) {
     assetText.setText('Loading asset: ' + file.src);
 });
+
     this.load.image('sky', 'assets/space.jpg');
     this.load.image('ground', 'assets/groundType1.png');
     this.load.image('ground2', 'assets/groundType2.png');
@@ -110,21 +110,21 @@ this.load.on('fileprogress', function (file) {
 function create ()
 {
 
-  this.add.image(400, 300, 'sky');
-  platforms = this.physics.add.staticGroup();
+    this.add.image(400, 300, 'sky');
+    platforms = this.physics.add.staticGroup();
 
-  platforms.create(384, 568, 'ground2').setScale(4).refreshBody();
-  platforms.create(448, 568, 'ground3').setScale(4).refreshBody();
-  platforms.create(64, 568, 'ground').setScale(4).refreshBody();
-  platforms.create(96, 568, 'overlay1').setScale(4).refreshBody();
-  platforms.create(128, 568, 'ground3').setScale(4).refreshBody();
-  platforms.create(192, 568, 'ground2').setScale(4).refreshBody();
-  platforms.create(256, 568, 'ground').setScale(4).refreshBody();
-  platforms.create(320, 568, 'ground').setScale(4).refreshBody();
-  platforms.create(512, 568, 'ground2').setScale(4).refreshBody();
-  platforms.create(600, 400, 'ground2');
-  platforms.create(50, 250, 'ground3');
-  platforms.create(750, 252, 'ground2');
+    platforms.create(384, 568, 'ground2').setScale(4).refreshBody();
+    platforms.create(448, 568, 'ground3').setScale(4).refreshBody();
+    platforms.create(64, 568, 'ground').setScale(4).refreshBody();
+    platforms.create(96, 568, 'overlay1').setScale(4).refreshBody();
+    platforms.create(128, 568, 'ground3').setScale(4).refreshBody();
+    platforms.create(192, 568, 'ground2').setScale(4).refreshBody();
+    platforms.create(256, 568, 'ground').setScale(4).refreshBody();
+    platforms.create(320, 568, 'ground').setScale(4).refreshBody();
+    platforms.create(512, 568, 'ground2').setScale(4).refreshBody();
+    platforms.create(600, 400, 'ground2');
+    platforms.create(50, 250, 'ground3');
+    platforms.create(750, 252, 'ground2');
 
   player = this.physics.add.sprite(100, 450, 'dude').setScale(2);
 
@@ -148,8 +148,8 @@ function create ()
 
   this.anims.create({
       key: 'left',
-      frames: this.anims.generateFrameNumbers('dude', { start: 3, end: 6 }),
-      frameRate: 10,
+      frames: this.anims.generateFrameNumbers('dude', { start: 3, end: 5 }),
+      frameRate: 7,
       repeat: -1
   });
 
@@ -160,11 +160,24 @@ function create ()
       repeat: -1
   });
 
+  this.anims.create({
+      key: 'dead',
+      frames: this.anims.generateFrameNumbers('dude', { start: 6, end: 7 }),
+      frameRate: 7,
+      repeat: -1
+  })
+
   this.physics.add.collider(player, platforms);
 
   cursors = this.input.keyboard.createCursorKeys();
 
   scoreText = this.add.text(16, 16, 'Points: 0', { fontSize: '32px', fill: '#fff' });
+
+  bombs = this.physics.add.group();
+
+  this.physics.add.collider(bombs, platforms);
+
+  this.physics.add.collider(player, bombs, hitBomb, null, this);
 }
 
 var score = 0;
@@ -210,8 +223,6 @@ function update () {
       } else {
           player.setVelocityX(0);
 
-          player.anims.play('turn');
-      }
 
       if (cursors.up.isDown && player.body.touching.down) {
           player.setVelocityY(-330);
@@ -226,13 +237,11 @@ function update () {
       player.anims.play('dead');
       player.setTint(0xff0000);
     }
+
+
 }
 
-bombs = this.physics.add.group();
 
-this.physics.add.collider(bombs, platforms);
-
-this.physics.add.collider(player, bombs, hitBomb, null, this);
 
 function hitBomb (player, bomb)
 {
@@ -240,14 +249,12 @@ function hitBomb (player, bomb)
 
     player.setTint(0xff0000);
 
-    player.anims.play('turn');
-
     gameOver = true;
 }
+
 function back() {
     window.location = './open-testlevels'
 }
-
 </script>
 <button class="button button1-center" onclick="back()"> Back</button><br>
   </body>

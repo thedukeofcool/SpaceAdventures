@@ -5,14 +5,13 @@
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <title>Test Alpha Version 4.0.3</title>
     <script src="phaser.js"></script>
-    <script>src="ScrollMaker.js"</script>
 
   </head>
   <body style="background-color:#4800FF;">
     <script>
   var config = {
     type: Phaser.AUTO,
-    width: 2000,
+    width: 1200,
     height: 600,
     physics: {
         default: 'arcade',
@@ -95,11 +94,11 @@ assetText.setOrigin(0.5, 0.5);
 this.load.on('fileprogress', function (file) {
     assetText.setText('Loading asset: ' + file.src);
 });
-  //Images
-    this.load.image('sky', 'assets/space4.png');
+
+    this.load.image('sky', 'assets/space2.png');
     this.load.image('ground', 'assets/platform.png');
     this.load.image('star', 'assets/star.png');
-    this.load.image('bomb', 'assets/bomb.png');
+    this.load.image('bomb', 'assets/alien.png');
     this.load.spritesheet('dude', 'assets/astronaut.PNG',
         { frameWidth: 32, frameHeight: 45 }
     );
@@ -143,8 +142,8 @@ function create ()
 
   this.anims.create({
       key: 'left',
-      frames: this.anims.generateFrameNumbers('dude', { start: 3, end: 6 }),
-      frameRate: 10,
+      frames: this.anims.generateFrameNumbers('dude', { start: 3, end: 5 }),
+      frameRate: 7,
       repeat: -1
   });
 
@@ -155,11 +154,24 @@ function create ()
       repeat: -1
   });
 
+  this.anims.create({
+      key: 'dead',
+      frames: this.anims.generateFrameNumbers('dude', { start: 6, end: 7 }),
+      frameRate: 7,
+      repeat: -1
+  })
+
   this.physics.add.collider(player, platforms);
 
   cursors = this.input.keyboard.createCursorKeys();
 
   scoreText = this.add.text(16, 16, 'Points: 0', { fontSize: '32px', fill: '#fff' });
+
+  bombs = this.physics.add.group();
+
+  this.physics.add.collider(bombs, platforms);
+
+  this.physics.add.collider(player, bombs, hitBomb, null, this);
 }
 
 var score = 0;
@@ -169,8 +181,26 @@ var gameover = false
 function collectStar (player, star)
 {
     star.disableBody(true, true);
+
     score += 10;
-    scoreText.setText('Points: ' + score);
+    scoreText.setText('Score: ' + score);
+
+    if (stars.countActive(true) === 0)
+    {
+        stars.children.iterate(function (child) {
+
+            child.enableBody(true, child.x, 0, true, true);
+
+        });
+
+        var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
+
+        var bomb = bombs.create(x, 16, 'bomb');
+        bomb.setBounce(1);
+        bomb.setCollideWorldBounds(true);
+        bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+
+    }
 }
 
 function update () {
@@ -203,6 +233,19 @@ function update () {
       player.anims.play('dead');
       player.setTint(0xff0000);
     }
+
+
+}
+
+
+
+function hitBomb (player, bomb)
+{
+    this.physics.pause();
+
+    player.setTint(0xff0000);
+
+    gameOver = true;
 }
 
 function back() {
