@@ -142,7 +142,7 @@ function create ()
   this.anims.create({
       key: 'left',
       frames: this.anims.generateFrameNumbers('dude', { start: 3, end: 6 }),
-      frameRate: 10,
+      frameRate: 7,
       repeat: -1
   });
 
@@ -155,7 +155,7 @@ function create ()
 
   this.anims.create({
       key: 'dead',
-      frames: this.anims.generateFrameNumbers('dude', { start: 6, end: 7 }),
+      frames: this.anims.generateFrameNumbers('dude', { start: 7, end: 7 }),
       frameRate: 7,
       repeat: -1
   })
@@ -215,8 +215,7 @@ function update () {
           player.anims.play('right', true);
       } else {
           player.setVelocityX(0);
-
-
+          setTimeout(() => {    player.anims.play('idle', true)  },0);
       if (cursors.up.isDown && player.body.touching.down) {
           player.setVelocityY(-330);
       }
