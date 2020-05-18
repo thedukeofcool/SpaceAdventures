@@ -34,7 +34,7 @@ function preload ()
   this.load.image('bomb', 'assets/alien.png');
   this.load.image('ground3', 'assets/groundType3.png');
   this.load.image('overlay1', 'assets/shadow.png')
-  this.load.image('BASE', 'assets/placeholder.png')
+  this.load.image('BASE', 'assets/space5.png')
   this.load.spritesheet('dude', 'assets/astronaut.PNG',
       { frameWidth: 32, frameHeight: 45 }
   );
@@ -43,7 +43,7 @@ function preload ()
 function create ()
 {
 
-this.add.image(400, 300, 'BASE');
+this.add.image(400, 300, 'BASE').setScale(8);
 platforms = this.physics.add.staticGroup();
 
 
