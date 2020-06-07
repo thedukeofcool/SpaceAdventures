@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
     <title>Test Alpha Version 4.0.3</title>
-    <script src="phaser.js"></script>
+    <script src="phaser.min.js"></script>
 
   </head>
   <body style="background-color:#4800FF;">
@@ -172,8 +170,7 @@ function create ()
 
   cursors = this.input.keyboard.createCursorKeys();
 
-  scoreText = this.add.text(16, 16, 'Points: 0', { fontSize: '32px', fill: '#fff' });
-
+  scoreText = this.add.text(16, 16, 'Score: 0', { fontSize: '32px', fill: '#fff' });
   bombs = this.physics.add.group();
 
   this.physics.add.collider(bombs, platforms);
@@ -184,7 +181,6 @@ function create ()
 var score = 0;
 var scoreText;
 var gameover = false
-
 function collectStar (player, star)
 {
     star.disableBody(true, true);
@@ -229,7 +225,20 @@ function update () {
       if (cursors.up.isDown && player.body.touching.down) {
           player.setVelocityY(-330);
       }
-    }
+      var debugText;
+      var playerx = player.x;
+      var playery = player.y;
+      DebugText = this.add.text(16, 48, '', { font: '16px Courier', fill: '#ffffff' }).refreshBody();
+      DebugText.setText([
+        'x: ' + player.x,
+        'y: ' + player.y
+    ]);
+
+        DebugText.setText([
+            'x: ' + player.x,
+            'y: ' + player.y
+        ])
+  }
 
     if (player.y > 550 ) {
       scoreText.setText("GAME OVER")
