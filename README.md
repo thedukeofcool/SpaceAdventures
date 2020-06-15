@@ -24,3 +24,7 @@ Up + Up on same cycle - double-jump(WIP)<br>
 
 # Play Online
 [Play Online](https://thedukeofcool.github.io/SpaceAdventures/)
+
+# Discord
+Our discord channel #spaceadventures has live updates on **_every_** action taken on this repo, in real time.
+I would be pleased if you joined [my discord server](discord.gg/9vx7Uxf/).
